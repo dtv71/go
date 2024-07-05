@@ -1,0 +1,37 @@
+<div class="container mt-2">
+    <div class="col">
+        <div class="card bg-light">
+            <h4 class="card-header text-white bg-info">Login</h4>
+            <div class="card-body">
+                <form class="container form-horizontal" #f="ngForm">
+                    <div class="form-group mt-2">
+                        <label for="username" class="text-dark">Email</label>
+                        <input type="email" name="username" class="form-control form-control-sm" [(ngModel)]="email" />
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="password" class="text-dark">Parola</label>
+                        <input type="password" name="password" [(ngModel)]="pwd" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-row mt-2" *ngIf="error">
+                        <div class="col-12 text-danger">
+                            {{ error }}
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-12 row">
+                            <div class="col-6">
+                                <button class="btn btn-info" (click)="doLogin()">
+                                    Login
+                                </button>
+                            </div>
+                            <div class="col-6 mt-2 text-end">
+                                <a href="javascript:void(0)" class="text-info" (click)="resetPassword()">Am uitat
+                                    parola</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

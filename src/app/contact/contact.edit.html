@@ -1,0 +1,196 @@
+<div class="container-fluid">
+    <div class="alert alert-primary text-end">
+        <div class="container">
+            <button type="button" class="btn btn-primary m-1" (click)="addUnitate()">Unitate noua</button>
+            <button type="button" class="btn btn-success m-1" (click)="save()"
+                [disabled]="isDisabled()">Salveaza</button>
+            <button type="button" class="btn btn-danger m-1" (click)="goBack()">Anuleaza</button>
+        </div>
+
+    </div>
+    <div class="col-12">
+        <form class="container form-horizontal" #f="ngForm">
+            <fieldset *ngIf="contact">
+                <div class="form-row row">
+                    <div class="col-md-1 col-sm-12">
+                        <label class="col-form-label">Titlu</label>
+                        <select class="form-select form-select-sm" name="idtitlu_contact"
+                            [(ngModel)]="contact.idtitlu_contact">
+                            <option *ngFor="let f of listatitlu" [value]="f.idstatus">{{f.nume}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Nume</label>
+                        <input type="text" class="form-control form-control-sm" name="nume_contact"
+                            [(ngModel)]="contact.nume_contact">
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Prenume</label>
+                        <input type="text" class="form-control form-control-sm" name="prenume_contact"
+                            [(ngModel)]="contact.prenume_contact">
+                    </div>
+
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Email</label>
+                        <input type="text" class="form-control form-control-sm" name="email_contact"
+                            [(ngModel)]="contact.email_contact">
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Tip</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.idtip_contact"
+                            name="idtip_contact" [typeahead]="listatip" display="nume" bind="idstatus"
+                            [colDef]="colFunctie" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Functie</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.idfunctie_contact"
+                            name="idfunctie_contact" [typeahead]="listafunctie" display="nume" bind="idstatus"
+                            [colDef]="colFunctie" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Specialitate</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.idspec_med"
+                            name="idspec_med" [typeahead]="listaspecmed" display="nume" bind="idspec_med"
+                            [colDef]="colFunctie" />
+                    </div>
+                </div>
+                <!-- <div class="form-row row">
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">CUI</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" name="cui_contact"
+                                [(ngModel)]="contact.cui_contact">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-info" (click)="getDateAnaf(contact.cui_contact)"><i
+                                        class="fa-solid fa-info"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="col-form-label">Unitate</label>
+                        <input type="text" class="form-control form-control-sm" name="ent_med_contact"
+                            [(ngModel)]="contact.ent_med_contact">
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Tip unitate</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.idtip_ent_med"
+                            name="idtip_ent_med" [typeahead]="listatipentmed" display="nume" bind="idstatus"
+                            [colDef]="colFunctie" />
+                    </div>
+                </div> -->
+                <div class="form-row row">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="col-form-label">Unitate</label>
+                        <div class="input-group mt-1">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.id_ent_med"
+                                name="id_ent_med" [typeahead]="listaUnitate" display="nume" bind="id_ent_med"
+                                [colDef]="colUnitate" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-secondary" (click)="getDateContact()" [disabled]="!contact.id_ent_med">Preia date contact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Judet</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.jud_contact"
+                            name="jud_contact" [typeahead]="listajudete" display="judet" bind="judet"
+                            (change)="resetLocalitate()" [colDef]="colJudet" />
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Localitate</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="contact.loc_contact"
+                            name="loc_contact" [typeahead]="listalocalitati" display="localitate" bind="localitate"
+                            [colDef]="colLocalitate" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Strada</label>
+                        <input type="text" class="form-control form-control-sm" name="str_contact"
+                            [(ngModel)]="contact.str_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Numar</label>
+                        <input type="text" class="form-control form-control-sm" name="nr_contact"
+                            [(ngModel)]="contact.nr_contact">
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Bloc</label>
+                        <input type="text" class="form-control form-control-sm" name="bl_contact"
+                            [(ngModel)]="contact.bl_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Apartament</label>
+                        <input type="text" class="form-control form-control-sm" name="ap_contact"
+                            [(ngModel)]="contact.ap_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Cod postal</label>
+                        <input type="text" class="form-control form-control-sm" name="cp_contact"
+                            [(ngModel)]="contact.cp_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Telefon 1</label>
+                        <input type="text" class="form-control form-control-sm" name="tel1_contact"
+                            [(ngModel)]="contact.tel1_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Telefon 2</label>
+                        <input type="text" class="form-control form-control-sm" name="tel2_contact"
+                            [(ngModel)]="contact.tel2_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Site</label>
+                        <input type="text" class="form-control form-control-sm" name="www_contact"
+                            [(ngModel)]="contact.www_contact">
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Mod contactare</label>
+                        <textarea class="form-control" rows="3" name="contactat_cum" [(ngModel)]="contact.contactat_cum"
+                            placeholder="Cum a fost contactat..."></textarea>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Interesat de</label>
+                        <textarea class="form-control" rows="3" name="nume_diploma" [(ngModel)]="contact.interesat_de"
+                            placeholder="Este interesat de..."></textarea>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Observatii</label>
+                        <textarea class="form-control" rows="3" name="nume_diploma" [(ngModel)]="contact.obs_contact"
+                            placeholder="Observatii..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-3 col-sm-12 mt-2">
+                        <input class="form-check-input" id="isToti" type="checkbox" name="isReminder"
+                            [(ngModel)]="isReminder" (click)="setReminder()" />
+                        <label for="isReminder" class="form-check-label">&nbsp;Reminder</label>
+                        <div class="input-group mt-2" *ngIf="isReminder">
+                            <input class="form-control form-control-sm" placeholder="dd.mm.yyyy" name="dataReminder"
+                                [(ngModel)]="dataReminder" ngbDatepicker #di="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-dark" (click)="di.toggle()" type="button"><i
+                                        class="fa fa-calendar" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12" *ngIf="isReminder">
+                        <label class="col-form-label">Follow-up</label>
+                        <textarea class="form-control" rows="3" name="nume_diploma" [(ngModel)]="text_followup"
+                            placeholder="Followup..."></textarea>
+
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

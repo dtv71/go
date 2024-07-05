@@ -1,0 +1,168 @@
+<div class="container-fluid">
+    <div class="alert alert-primary">
+        <div class="container-fluid row"  *ngIf="activitate && tipActivitate">
+            <div class="col-md-6 col-sm-12">
+                <legend>{{tipActivitate.nume}}</legend>
+            </div>
+            <div class="col-md-6 col-sm-12 text-end">
+               <a class="btn btn-primary m-1" [routerLink]="['/contactnou']" target="_blank" name="contactnou">Contact nou</a>
+                <button type="button" class="btn btn-success m-1" (click)="save()"
+                    [disabled]="isDisabled()">Salveaza</button>
+                <button type="button" class="btn btn-danger m-1" (click)="goBack()">Anuleaza</button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-12">
+        <form class="container form-horizontal" #f="ngForm">
+            <fieldset *ngIf="activitate && tipActivitate">
+                <div class="form-row row">
+                    <!-- <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Tip Activitate</label>
+                        <select class="form-select form-select-sm" name="idtitlu_contact" (change)="getSetIsClient()"
+                            [(ngModel)]="activitate.idtip_activitate">
+                            <option *ngFor="let f of listatipactivitate" [value]="f.idstatus">{{f.nume}}</option>
+                        </select>
+                    </div> -->
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Data</label>
+                        <div class="input-group">
+                            <input class="form-control form-control-sm" placeholder="dd.mm.yyyy" name="data_activitate" required
+                                [(ngModel)]="dataActivitate" ngbDatepicker #da="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-dark" (click)="da.toggle()" type="button"><i
+                                        class="fa fa-calendar" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12" *ngIf="isClient">
+                        <label class="col-form-label">Client</label>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="activitate.id_contact" required
+                            name="id_contact" [typeahead]="listaContact" display="numeprenume" bind="id_contact"
+                            (selectItem)="getContact()" [colDef]="colContact" />
+                    </div>
+                    <div class="col-md-2 col-sm-12"  *ngIf="isClient && contact">
+                        <label class="col-form-label">Specialitate</label>
+                        <input type="text" class="form-control form-control-sm" name="spec_med" disabled
+                            [(ngModel)]="contact.spec_med">
+                    </div>
+                   
+                    <div class="col-md-2 col-sm-12"  *ngIf="isClient && contact">
+                        <label class="col-form-label">Tip</label>
+                        <input type="text" class="form-control form-control-sm" name="tipcontact" disabled
+                            [(ngModel)]="contact.tipcontact">
+                    </div>
+                    <div class="col-md-2 col-sm-12" *ngIf="isClient && contact">
+                        <label class="col-form-label">Functie</label>
+                        <input type="text" class="form-control form-control-sm" name="functiecontact" disabled
+                            [(ngModel)]="contact.functiecontact">
+                    </div>
+                </div>
+
+                <div class="form-row row" *ngIf="isClient && contact ">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Unitate</label>
+                        <input type="text" class="form-control form-control-sm" name="unitate" disabled
+                            [(ngModel)]="contact.unitate">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Judet</label>
+                        <input type="text" class="form-control form-control-sm" name="jud_contact" disabled
+                            [(ngModel)]="contact.jud_contact">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Localitate</label>
+                        <input type="text" class="form-control form-control-sm" name="loc_contact" disabled
+                            [(ngModel)]="contact.loc_contact">
+                    </div>
+                    
+                    
+                </div>
+                <div class="form-row row" *ngIf="isClient  && contact">
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Strada</label>
+                        <input type="text" class="form-control form-control-sm" name="str_contact" disabled
+                            [(ngModel)]="contact.str_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Nr</label>
+                        <input type="text" class="form-control form-control-sm" name="nr_contact" disabled
+                            [(ngModel)]="contact.nr_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Telefon 1</label>
+                        <input type="text" class="form-control form-control-sm" name="tel1_contact" disabled
+                            [(ngModel)]="contact.tel1_contact">
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Telefon 2</label>
+                        <input type="text" class="form-control form-control-sm" name="tel2_contact" disabled
+                            [(ngModel)]="contact.tel2_contact">
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Email</label>
+                        <input type="text" class="form-control form-control-sm" name="email_contact" disabled
+                            [(ngModel)]="contact.email_contact">
+                    </div>
+                </div>
+                <div class="form-row row" *ngIf="isClient && contact">
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Follow-up</label>
+                        <div class="input-group">
+                            <input class="form-control form-control-sm" placeholder="dd.mm.yyyy" name="data_followup"
+                                [(ngModel)]="dataFollowup" ngbDatepicker #di="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-dark" (click)="di.toggle()" type="button"><i
+                                        class="fa fa-calendar" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <label class="col-form-label">Nivel interes</label>
+                        <select class="form-select form-select-sm" name="idtitlu_contact" required
+                            [(ngModel)]="activitate.idtip_interes">
+                            <option *ngFor="let f of listatipinteres" [value]="f.idstatus">{{f.nume}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row row mt-2" *ngIf="isClient  && contact">
+                    <div class="col-md-2 col-sm-12 mt-2">
+                        <input class="form-check-input" type="checkbox" name="flag_catalog" 
+                        [(ngModel)]="activitate.flag_catalog"
+                            (click)="setCheck('flag_catalog')" />
+                        <label for="flag_catalog" class="form-check-label">&nbsp;Catalog</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12 mt-2">
+                        <input class="form-check-input" type="checkbox" name="flag_prospect_ecografie"
+                            [(ngModel)]="activitate.flag_prospect_ecografie"
+                            (click)="setCheck('flag_prospect_ecografie')" />
+                        <label for="flag_prospect_ecografie" class="form-check-label">&nbsp;Prospect ECO</label>
+                    </div>
+                    <div class="col-md-3 col-sm-12 mt-2">
+                        <input class="form-check-input" type="checkbox" name="flag_prospect_radiologie"
+                            [(ngModel)]="activitate.flag_prospect_radiologie"
+                            (click)="setCheck('flag_prospect_radiologie')" />
+                        <label for="flag_prospect_radiologie" class="form-check-label">&nbsp;Prospect RADIOLOGIE</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12 mt-2">
+                        <input class="form-check-input" type="checkbox" name="flag_prospect_ati"
+                            [(ngModel)]="activitate.flag_prospect_ati" (click)="setCheck('flag_prospect_ati')" />
+                        <label for="flag_prospect_ati" class="form-check-label">&nbsp;Prospect ATI</label>
+                    </div>
+                    <div class="col-md-3 col-sm-12 mt-2">
+                        <input class="form-check-input" type="checkbox" name="flag_prospect_altele"
+                            [(ngModel)]="activitate.flag_prospect_altele" (click)="setCheck('flag_prospect_altele')" />
+                        <label for="flag_prospect_altele" class="form-check-label">&nbsp;Prospect altele</label>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Observatii</label>
+                        <textarea class="form-control" rows="3" name="nume_diploma" [(ngModel)]="activitate.obs"
+                            placeholder="Observatii..."></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

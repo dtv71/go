@@ -1,0 +1,5 @@
+{
+  "apiUrl": "http://localhost/go.srv/api",
+  "tipContract" : ["Servicii", "Furnizare", "Lucrari", "Chirie", "Publicitate"]
+}
+

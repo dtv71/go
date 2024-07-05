@@ -1,0 +1,56 @@
+<div class="modal-header bg-info text-white">
+    <h4 class="modal-title">Unitate</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="container form-horizontal" #f="ngForm">
+
+        <fieldset *ngIf="producator">
+            <div class="form-row row">
+                <div class="col col-sm-12">
+                    <label class="col-form-label">Nume</label>
+                    <input type="text" class="form-control form-control-sm" name="nume_producator"
+                        [(ngModel)]="producator.nume">
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col col-sm-12">
+                    <label class="col-form-label">Adresa</label>
+                    <textarea class="form-control" rows="3" name="adresa" [(ngModel)]="producator.adresa"
+                    placeholder="Adresa..."></textarea>
+                  
+                </div>
+            </div>
+            <div class="form-row row">
+
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Telefon</label>
+                    <input type="text" class="form-control form-control-sm" name="telefon"
+                        [(ngModel)]="producator.telefon">
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Email</label>
+                    <input type="text" class="form-control form-control-sm" name="email_producator"
+                        [(ngModel)]="producator.email">
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Site</label>
+                    <input type="text" class="form-control form-control-sm" name="website"
+                        [(ngModel)]="producator.website">
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col col-sm-12">
+                    <label class="col-form-label">Observatii</label>
+                    <textarea class="form-control" rows="3" name="obs" [(ngModel)]="producator.obs"
+                        placeholder="Observatii..."></textarea>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="isDisabled()">Salveaza</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">Anuleaza</button>
+</div>

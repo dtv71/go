@@ -1,0 +1,64 @@
+﻿<div class="modal-header">
+    <h5>Fișiere atașate </h5>
+</div>
+<div class="modal-body">
+    <div class="custom-file" *ngIf="canUpload">
+        <input type="file" class="custom-file-input" id="uploadFile" lang="ro"
+            [accept]="allowedFiletype" (change)="uploadFiles($event)" />
+        <label class="custom-file-label" for="uploadFile">Incarca fisier</label>
+        <br /><br />
+    </div>
+
+    <table class="table table-bordered table-sm table-hover table-elipis">
+        <tr class="active">
+            <th>Status</th>
+            <th>Nume</th>
+            <th class="hidden-xs">Data</th>
+            <th></th>
+        </tr>
+        <tbody *ngFor="let up of uploader">
+            <tr *ngFor="let item of up.queue">
+                <td class="text-center" nowrap>
+                    <i *ngIf="!item.isError" class="fa fa-1x fa-upload"></i>&nbsp;
+                    <span *ngIf="item.isUploading">
+                        <i class="fa fa-1x fa-spin fa-pulse fa-spinner"></i>&nbsp;{{item.progress}}%
+                    </span>
+                    <i *ngIf="item.isSuccess"><i class="fa fa-2x text-success fa-chack"></i></i>
+                    <i *ngIf="item.isCancel"><i class="fa fa-2x text-warning fa-ban-circle"></i></i>
+                    <i *ngIf="item.isError"><i class="fa fa-2x text-danger fa-times"></i></i>
+                </td>
+                <td>{{ item?.file?.name }}</td>
+                <td class="text-center hidden-xs">--</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-link" toggle="tooltip" title="Anuleaza upload!" (click)="item.cancel()">
+                        <i class="text-danger fa fa-times fa-1x"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tr *ngFor="let file of files">
+            <td class="text-center">
+                <button type="button" class="btn btn-sm btn-link" (click)="download(file)">
+                    <i class="fa fa-download"></i>
+                </button>
+            </td>
+            <td>
+                <strong class="pointer" (click)="download(file)">
+                    <i class="fal fa-file"></i>&nbsp;{{file.nume}}
+                </strong>
+            </td>
+            <td class="hidden-xs">{{file.stamp}}</td>
+            <td class="text-center media-middle" *ngIf="canUpload">
+                <button type="button" class="btn btn-sm btn-link" tabindex="-i"
+                    toggle="tooltip" title="Șterge fișier !!" (click)="delete(file)">
+                    <i class="text-danger fal fa-trash" style="font-size: 1.5em;"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-danger" (click)="close()">
+        <i class="fal fa-undo fa-1x"></i>&nbsp;Inchide
+    </button>
+</div>

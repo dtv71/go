@@ -1,0 +1,22 @@
+<div class="modal-header bg-info text-white">
+    <h4 class="modal-title">{{tipn}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="container form-horizontal" #f="ngForm">
+
+        <fieldset>
+            <div class="form-row row">
+                <div class="col" *ngIf="status">
+                    <label class="col-form-label">{{tipstatus=='specmed' ? 'Specialitate medicala' : 'Nume'}}</label>
+                    <input type="text" class="form-control form-control-sm" name="serie_diploma"
+                        [(ngModel)]="status.nume">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer" *ngIf="status">
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="isDisabled()">Salveaza</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">Anuleaza</button>
+</div>

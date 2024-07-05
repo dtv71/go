@@ -1,0 +1,102 @@
+<div class="modal-header bg-info text-white">
+    <h4 class="modal-title">Unitate</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="container form-horizontal" #f="ngForm">
+
+        <fieldset *ngIf="ent_med">
+            <div class="form-row row">
+                <div class="col-md-3 col-sm-12">
+                    <label class="col-form-label">CUI</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" name="cui_ent_med"
+                            [(ngModel)]="ent_med.cui">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-info" (click)="getDateAnaf(ent_med.cui)"><i
+                                    class="fa-solid fa-info"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="col-form-label">Nr. Reg.Com</label>
+                    <input type="text" class="form-control form-control-sm" name="nr_reg_com"
+                        [(ngModel)]="ent_med.nr_reg_com">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="col-form-label">Nume</label>
+                    <input type="text" class="form-control form-control-sm" name="nume_ent_med"
+                        [(ngModel)]="ent_med.nume">
+                </div>
+
+
+
+
+            </div>
+            <div class="form-row row">
+                <div class="col-md-3 col-sm-12">
+                    <label class="col-form-label">Judet</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="ent_med.jud" name="jud_ent_med"
+                        [typeahead]="listajudete" display="judet" bind="judet" (change)="resetLocalitate()"
+                        [colDef]="colJudet" />
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="col-form-label">Localitate</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="ent_med.loc" name="loc_ent_med"
+                        [typeahead]="listalocalitati" display="localitate" bind="localitate" [colDef]="colLocalitate" />
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Strada</label>
+                    <input type="text" class="form-control form-control-sm" name="strada" [(ngModel)]="ent_med.strada">
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="col-form-label">Numar</label>
+                    <input type="text" class="form-control form-control-sm" name="numar" [(ngModel)]="ent_med.numar">
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col-md-2 col-sm-12">
+                    <label class="col-form-label">Bloc</label>
+                    <input type="text" class="form-control form-control-sm" name="bloc" [(ngModel)]="ent_med.bloc">
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="col-form-label">Apartament</label>
+                    <input type="text" class="form-control form-control-sm" name="ap" [(ngModel)]="ent_med.ap">
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="col-form-label">Cod postal</label>
+                    <input type="text" class="form-control form-control-sm" name="cp" [(ngModel)]="ent_med.cp">
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="col-form-label">Telefon 1</label>
+                    <input type="text" class="form-control form-control-sm" name="tel1" [(ngModel)]="ent_med.tel1">
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="col-form-label">Telefon 2</label>
+                    <input type="text" class="form-control form-control-sm" name="tel2" [(ngModel)]="ent_med.tel2">
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Email</label>
+                    <input type="text" class="form-control form-control-sm" name="email_ent_med"
+                        [(ngModel)]="ent_med.email">
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Site</label>
+                    <input type="text" class="form-control form-control-sm" name="site" [(ngModel)]="ent_med.site">
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label class="col-form-label">Tip</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="ent_med.idtip_ent_med"
+                        name="idtip_ent_med" [typeahead]="listatipentmed" display="nume" bind="idstatus"
+                        [colDef]="colFunctie" />
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="isDisabled()">Salveaza</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">Anuleaza</button>
+</div>

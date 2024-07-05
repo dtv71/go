@@ -1,0 +1,28 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+      <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
+      <a [routerLink]="['/personal', idCompartiment]" [ngClass]="setActive('personal')"
+        aria-current="page">Personal</a>
+    </li>
+    <li class="nav-item">
+        <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
+        <a [routerLink]="['/concedii', idCompartiment]" [ngClass]="setActive('concedii')"
+          aria-current="page">Concedii</a>
+      </li>
+    <li class="nav-item">
+      <!-- <a class="nav-link" href="#">Link</a> -->
+      <a [routerLink]="['/schimburi', idCompartiment]" [ngClass]="setActive('schimburi')">Schimb</a>
+    </li>
+    <li class="nav-item">
+      <!-- <a class="nav-link" href="#">Link</a> -->
+      <a [routerLink]="['/echipa', idCompartiment]" [ngClass]="setActive('echipa')">Echipa</a>
+    </li>
+    <li class="nav-item">
+      <!-- <a class="nav-link" href="#">Link</a> -->
+      <a [routerLink]="['/punct-lucru', idCompartiment]" [ngClass]="setActive('punct-lucru')">Puncte de lucru</a>
+    </li>
+    <li class="nav-item">
+      <!-- <a class="nav-link" href="#">Link</a> -->
+      <a [routerLink]="['/pontaj', idCompartiment]" [ngClass]="setActive('pontaj')">Pontaj</a>
+    </li>
+  </ul>

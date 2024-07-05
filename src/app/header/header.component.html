@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="row col-12">
+      <div class="col-6 d-none d-md-block d-lg-block">
+        <a href="#" class="navbar-brand"><img src="./assets/logo/logo.png" /></a>
+      </div>
+      <div class="col-6 d-sm-block d-md-none">
+        <a href="#" class="navbar-brand"><img src="./assets/logo/logo_mobile.png" /></a>
+      </div>
+      <div class="col-6 text-end mt-1" *ngIf="userLogat">
+        <button class="btn btn-outline-info"><i class="fa-solid fa-user-gear"></i>&nbsp;{{userLogat.unume + ' '
+          +userLogat.uprenume}}</button>
+      </div>
+
+    </div>
+  </div>
+
+
+</nav>

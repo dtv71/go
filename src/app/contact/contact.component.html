@@ -1,0 +1,112 @@
+<div class="container-fluid">
+
+    <div class="alert alert-dark col-12">
+        <div class="form-group row">
+            <div class="col-md-4 col-sm-12">
+                <div class="input-group mt-1">
+
+                    <input type="text" class="form-control form-control-sm" name="cauta" [(ngModel)]="searchText"
+                        placeholder="Cauta nume, email...">
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-secondary" (click)="getContacte()"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-success" (click)="edit('')" *ngIf="visibleButton()"><i
+                                    class="fa fa-plus-circle"></i>&nbsp;Adauga</button>
+
+                        </div>
+
+                        <button class="btn btn-sm btn-primary m-1" (click)="edit(id_contact)"
+                            [disabled]="disableButton('edit')" *ngIf="visibleButton()"><i
+                                class="fa fa-edit"></i>&nbsp;Modifica</button>
+                        <button class="btn btn-sm btn-danger m-1" (click)="sterge(id_contact)"
+                            [disabled]="disableButton('sterge')" *ngIf="visibleButton()"><i
+                                class="fa fa-user-times"></i>&nbsp;Elimina</button>
+                        <!-- <div class="btn-group">
+                            <button class="btn btn-sm btn-danger" (click)="sterge()"
+                                [disabled]="disableButton('sterge')" *ngIf="visibleButton()"><i
+                                    class="fa fa-user-times"></i>&nbsp;Elimina</button>
+                            <button type="button" class="btn btn-sm btn-danger dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                [disabled]="disableButton('eliminaTot')">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="javascript:void(0)" (click)="eliminaTot()">Elimina
+                                        toti participantii</a></li>
+                            </ul>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 col-sm-12">
+                <!-- <button class="btn btn-sm btn-warning m-1" (click)="importCursanti()"
+                    [disabled]="disableButton('import')" *ngIf="visibleButton()"><i
+                        class="fa fa-upload"></i>&nbsp;Import</button> -->
+
+                <button class="btn btn-sm btn-dark m-1" (click)="exportCsv()" [disabled]="disableButton('export')"
+                    *ngIf="visibleButton()"><i class="fa fa-download"></i>&nbsp;Export</button>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <legend>Contacte</legend>
+            <ag-grid-angular style="height: 50vh;" class="ag-theme-alpine" [gridOptions]="grid.gridOptions">
+            </ag-grid-angular>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <!--NAV TAB-->
+            <ul class="nav nav-tabs">
+
+                <li class="nav-item">
+                    <a href="javascript:void(0)" (click)="getGrid('activitate')" [ngClass]="setActive('activitate')"
+                        aria-current="page">Activitate</a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0)" (click)="getGrid('proiecte')" [ngClass]="setActive('proiecte')"
+                        aria-current="page">Proiecte</a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0)" (click)="getGrid('oferte')" [ngClass]="setActive('oferte')"
+                        aria-current="page">Oferte</a>
+                </li>
+                
+            </ul>
+            <!--END NAV TAB-->
+        </div>
+
+    </div>
+    <div class="row mt-2">
+        <div class="col-12" *ngIf="tipTab=='activitate'">
+            <ag-grid-angular style="height: 20vh;" class="ag-theme-alpine" [gridOptions]="gridActivitate.gridOptions">
+            </ag-grid-angular>
+        </div>
+        <div class="col-12" *ngIf="tipTab=='proiecte'">
+            <ag-grid-angular style="height: 20vh;" class="ag-theme-alpine" [gridOptions]="gridActivitate.gridOptions">
+            </ag-grid-angular>
+        </div>
+        <div class="col-12" *ngIf="tipTab=='oferte'">
+            <ag-grid-angular style="height: 20vh;" class="ag-theme-alpine" [gridOptions]="gridActivitate.gridOptions">
+            </ag-grid-angular>
+        </div>
+    </div>
+
+
+</div>

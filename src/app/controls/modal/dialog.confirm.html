@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4>{{params.title || 'Confirm'}}</h4>
+  </div>
+  <div class="modal-body text-center">
+    <div *ngIf="params.message" [ngClass]="textAlign()" class="overflow-auto" [innerHtml]="params.message"
+      style="max-height:50vh; white-space: pre-wrap;">
+    </div>
+    <div *ngIf="params['template']" class="overflow-auto" style="max-height:50vh;" [innerHtml]="params['template']">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button *ngFor="let btn of btns" [type]="btn.btnType" class="btn" [ngClass]="btn.cssClass" (click)="onClick(btn)">
+      <i class="fa fa-1x" [ngClass]="btn.icon"></i>&nbsp;{{btn.caption}}
+    </button>
+  </div>
