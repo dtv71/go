@@ -5,6 +5,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { DialogService } from '../_services/dialog.service';
 import { AgGrid, ColDef, Renderers } from '../controls';
 import { ToastrService } from 'ngx-toastr';
+import { ProdusEditModal } from './produs.edit.modal';
 
 @Component({
   selector: 'app-produse',
@@ -12,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './produse.component.css'
 })
 export class ProduseComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router, private activatedRoute: ActivatedRoute, 
+  constructor(private api: ApiService, private router: Router, private activatedRoute: ActivatedRoute,
     private auth: AuthenticationService, private dialog: DialogService, private log: ToastrService) { }
 
   grid: AgGrid
@@ -22,10 +23,11 @@ export class ProduseComponent implements OnInit {
   //listacategorii
   listaproduse
   statusCurent
+  url_media
 
   colCategorii = [
     { property: "nume", class: "col-12" },
-]
+  ]
 
   ngOnInit(): void {
     this.searchText = ""
@@ -48,6 +50,7 @@ export class ProduseComponent implements OnInit {
       { headerName: 'Valoare discount', field: 'valdiscount', },
       { headerName: 'Valuta', field: 'valuta', },
       { headerName: 'Inactiv', field: 'is_inactiv', cellRenderer: Renderers.Checkbox },
+      // { headerName: 'Media', field: 'url_media', cellRenderer: Renderers.Img  },
 
     ];
     this.grid = new AgGrid(colDefs, false, false);
@@ -69,7 +72,8 @@ export class ProduseComponent implements OnInit {
       //this.id_categorie = this.grid.selectedRow.id_categorie
       this.id_prod = this.grid.selectedRow.id_prod
       this.statusCurent = this.grid.selectedRow.is_inactiv
-      this.grid.gridOptions.api.ensureIndexVisible(this.grid.gridOptions.api.getSelectedNodes()[0].rowIndex, 'middle');
+      this.url_media = this.grid.selectedRow.url_media || ""
+      this.grid.gridOptions.api.ensureIndexVisible(this.grid.gridOptions.api.getSelectedNodes()[0].rowIndex);
     }
 
     this.grid.gridOptions.onSortChanged = () => {
@@ -81,7 +85,7 @@ export class ProduseComponent implements OnInit {
     }
   }
 
-  getCategorii(){
+  getCategorii() {
     // this.api.fdbGetCategoriiProduse(this.searchText, this.id_categorie).then((d)=>{
     //   this.listacategorii = d
     // })
@@ -89,10 +93,10 @@ export class ProduseComponent implements OnInit {
 
   listacategorii: any = (search) => {
     return this.api.fdbGetCategoriiProduse(search, this.id_categorie || "");
-}
+  }
 
-  getProduse(){
-    this.api.fdbGetProduse("", this.id_categorie).then((d)=>{
+  getProduse() {
+    this.api.fdbGetProduse("", this.id_categorie).then((d) => {
       this.listaproduse = d
       this.grid.setDataSource(this.listaproduse).then(() => {
         this.grid.gridOptions.api.forEachNode(node => {
@@ -107,10 +111,10 @@ export class ProduseComponent implements OnInit {
 
   visibleButton() { return true }
 
-  edit(id_categorie) {
-    // this.dialog.custom(ProdcatEditModal, { id_categorie: id_categorie }, { size: 'md', backdrop: false }).result.then(() => {
-    //   this.getCategorii();
-    // })
+  edit(id_prod, id_categorie) {
+    this.dialog.custom(ProdusEditModal, { id_prod: id_prod, id_categorie: id_categorie }, { size: 'xl', backdrop: false }).result.then(() => {
+      this.getCategorii();
+    })
   }
   sterge(id_categorie) { }
   schimbaStatus() {
@@ -129,7 +133,7 @@ export class ProduseComponent implements OnInit {
         valid: this.id_prod
 
       }
-      this.api.saveStatus(status).subscribe((result)=>{
+      this.api.saveStatus(status).subscribe((result) => {
         this.log.success(result.toString())
         this.getProduse()
       })

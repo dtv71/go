@@ -172,4 +172,6 @@ export class Produse {
     iduser: string; 
     stamp: Date;
     is_inactiv: number;
+    id_tiptva: string;
 }
+

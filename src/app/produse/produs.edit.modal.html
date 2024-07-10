@@ -1,0 +1,88 @@
+<div class="modal-header bg-info text-white">
+    <h4 class="modal-title">Unitate</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="container form-horizontal" #f="ngForm">
+
+        <fieldset *ngIf="produs">
+            <div class="form-row row">
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Categorie</label>
+
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="id_categorie" required
+                        placeholder="Alegeti catgorie..." name="id_categorie" [typeahead]="listacategorii"
+                        display="nume" bind="id_categorie" (selectItem)="getProduse()" [colDef]="colCategorii" />
+                </div>
+                <div class="col col-sm-12 col-md-6">
+                    <label class="col-form-label">Nume</label>
+                    <input type="text" class="form-control form-control-sm" name="nume_prod" required
+                        [(ngModel)]="produs.nume_prod">
+                </div>
+                <div class="col col-sm-12 col-md-2">
+                    <label class="col-form-label">Ord</label>
+                    <input type="text" class="form-control form-control-sm" name="ord" [(ngModel)]="produs.ord">
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Descriere</label>
+                    <textarea class="form-control" rows="3" name="text_prod" [(ngModel)]="produs.text_prod"
+                        placeholder="Descriere..."></textarea>
+                </div>
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Specificatii tehnice</label>
+                    <textarea class="form-control" rows="3" name="tech_prod" [(ngModel)]="produs.tech_prod"
+                        placeholder="Specificatii tehnice..."></textarea>
+                </div>
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Optional</label>
+                    <textarea class="form-control" rows="3" name="optional" [(ngModel)]="produs.optional"
+                        placeholder="Optional..."></textarea>
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Link</label>
+                    <input type="text" class="form-control form-control-sm" name="link_prod"
+                        [(ngModel)]="produs.link_prod">
+                </div>
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Accesoriu la</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="id_prod_accesoriu"
+                        placeholder="Accesoriu la..." name="id_prod_accesoriu" [typeahead]="listaproduse"
+                        display="nume_prod" bind="id_prod" [colDef]="colProduse" />
+                </div>
+                <div class="col col-sm-12 col-md-4">
+                    <label class="col-form-label">Producator</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="produs.id_producator"
+                        placeholder="Alege producator..." name="id_prod_accesoriu" [typeahead]="listaproducator"
+                        display="nume" bind="id_producator" [colDef]="colProducator" />
+                </div>
+                <div class="form-row row">
+                    <div class="col col-sm-12 col-md-4">
+                        <label class="col-form-label">Valuta</label>
+                        <select class="form-select form-select-sm" name="valuta" [(ngModel)]="produs.valuta">
+                            <option *ngFor="let f of listavaluta" [value]="f.nume">{{f.nume}}</option>
+                        </select>
+                    </div>
+                    <div class="col col-sm-12 col-md-4">
+                        <label class="col-form-label">Pret fara TVA</label>
+                        <input type="text" class="form-control form-control-sm" name="valftva"
+                            [(ngModel)]="produs.pretftva">
+                    </div>
+                    <div class="col col-sm-12 col-md-4">
+                        <label class="col-form-label">Procent TVA</label>
+                        <select class="form-select form-select-sm" name="id_tiptva" [(ngModel)]="produs.id_tiptva">
+                            <option *ngFor="let f of listatiptva" [value]="f.id_tiptva">{{f.nume}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="isDisabled()">Salveaza</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">Anuleaza</button>
+</div>

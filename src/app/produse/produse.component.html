@@ -18,10 +18,10 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-success" (click)="edit('')" *ngIf="visibleButton()"><i
+                            <button class="btn btn-sm btn-success" (click)="edit('', id_categorie)" *ngIf="visibleButton()"><i
                                     class="fa fa-plus-circle"></i>&nbsp;Adauga</button>
                         </div>
-                        <button class="btn btn-sm btn-primary m-1" (click)="edit(id_categorie)"
+                        <button class="btn btn-sm btn-primary m-1" (click)="edit(id_prod, id_categorie)"
                             [disabled]="disableButton('edit')" *ngIf="visibleButton()"><i
                                 class="fa fa-edit"></i>&nbsp;Modifica</button>
                         <button class="btn btn-sm btn-warning m-1" (click)="schimbaStatus()"
@@ -53,8 +53,12 @@
     <div class="row mt-2">
         <div class="col-12">
             <legend>Produse</legend>
-            <ag-grid-angular style="height: 70vh;" class="ag-theme-alpine" [gridOptions]="grid.gridOptions">
+            <ag-grid-angular style="height: 40vh;" class="ag-theme-alpine" [gridOptions]="grid.gridOptions">
             </ag-grid-angular>
         </div>
     </div>
+    <div class="row mt-2">
+        <div class="col-12" *ngIf="url_media">
+            <img src="{{url_media}}" width="300px" />
+        </div>
 </div>

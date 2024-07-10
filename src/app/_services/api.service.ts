@@ -243,6 +243,20 @@ export class ApiService {
 
 	}
 
+	getTipTva(searchText?, id_tiptva?){
+		const promise = this.httpClient.get(
+			`${this.PHP_API_SERVER}/dbcomun.php?
+						op=getTipTva
+						&searchText=${searchText || ""}
+						&id_tiptva=${id_tiptva || ""}`
+		).toPromise();
+		return promise.then((data) => {
+			return data;
+		}).catch((error) => {
+			console.log("Promise rejected with " + JSON.stringify(error));
+		});
+	}
+
 	getDateFirmaAnaf(cui) {
 		return this.httpClient.get(`${this.PHP_API_SERVER}/mfinante.php?op=getDateFirmaAnaf&cui=${cui}`)
 	}
