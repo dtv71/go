@@ -125,7 +125,7 @@ export class EntMed {
 }
 
 export class Producator {
-    idprd: number;
+    id: number;
     id_producator: string;
     nume: string;
     adresa: string;
@@ -139,7 +139,7 @@ export class Producator {
 }
 
 export class Prodcat {
-    idcat: number;
+    id: number;
     stamp: Date;
     id_categorie: string;
     nume: string;
@@ -175,3 +175,65 @@ export class Produse {
     id_tiptva: string;
 }
 
+export class Accesoriu {
+    id: number;
+    id_accesoriu: string;
+    id_prod_parent: string;
+    id_prod_accesoriu: string;
+    flag_selectat_oferta: number;
+    stamp: Date;
+}
+export class TipTva {
+    id: number
+    id_tiptva: string
+    nume: string
+    procent: number
+    is_inactiv: number
+    stamp: Date
+    is_curent: number
+}
+
+export class Valuta {
+    id: number
+    id_valuta: string
+    nume: string
+    cod: string
+    is_inactiv: number
+    is_curent: number
+    stamp: Date
+}
+
+export class Oferta {
+       id: number;
+       id_ofprod: string;
+       nume: string;
+       id_project: string;
+       data_priority: Date
+       data_status: Date
+       followup: string;
+       pretvanzareof: number;
+       pretftvaof: number;
+       valtvaof: number;
+       procentdiscountof: number;
+       valdiscountof: number;
+       pretoferta: number;
+       modplata: string;
+       termen_garantie: string;
+       termen_livrare: string;
+       instalare: string;
+       valabilitate_oferta: string;
+       tech_prodof: string;
+       optional_prodof: string;
+       obsof: string;
+       noteof: string;
+       data_oferta: Date
+       id_contact: string;
+       data_reminder: Date
+       data_demo: Date
+       iduser: string;
+       idtip_oferta: string;
+       id_valuta: string;
+       id_tiptva: string;
+       idtip_status: string;
+       idtip_prioritate: string;
+}

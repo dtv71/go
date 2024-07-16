@@ -32,6 +32,8 @@ import { ProdcatComponent } from './prodcat/prodcat.component';
 import { ProduseComponent } from './produse/produse.component';
 import { ProdcatEditModal } from './prodcat/prodcat.edit.modal';
 import { ProdusEditModal } from './produse/produs.edit.modal';
+import { OfertaComponent } from './oferta/oferta.component';
+import { ProdusAddAccesoriu } from './produse/produse.add.accesoriu';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { ProdusEditModal } from './produse/produs.edit.modal';
     CompanieComponent, CompanieEditModal, 
     ProducatorComponent, ProducatorEditModal, 
     ProdcatComponent, ProdcatEditModal,
-    ProduseComponent, ProdusEditModal
+    ProduseComponent, ProdusEditModal, ProdusAddAccesoriu,
+    OfertaComponent
   ],
   imports: [
     BrowserModule,

@@ -206,14 +206,14 @@ export class ApiService {
 		});
 	}
 
-	fdbGetCategoriiProduse(searchText, id_categorie, ord?, limit?) {
+	fdbGetCategoriiProduse(searchText, id_categorie?, ord?, limit?) {
 		if (!ord) ord = ''
 		if (!limit) limit = ''
 		const promise = this.httpClient.get(
 			`${this.PHP_API_SERVER}/dbproduse.php?
 						op=fdbGetCategoriiProduse
 						&searchText=${searchText}
-						&id_categorie=${id_categorie}
+						&id_categorie=${id_categorie || "" }
 						&ord=${ord}
 						&limit=${limit}`
 		).toPromise();
@@ -231,9 +231,9 @@ export class ApiService {
 						op=fdbGetProduse
 						&searchText=${searchText || ""}
 						&id_categorie=${id_categorie || ""}
-						&id_prod=${id_prod  || ""}
-						&ord=${ord  || ""}
-						&limit=${limit  || ""}`
+						&id_prod=${id_prod || ""}
+						&ord=${ord || ""}
+						&limit=${limit || ""}`
 		).toPromise();
 		return promise.then((data) => {
 			return data;
@@ -243,12 +243,62 @@ export class ApiService {
 
 	}
 
-	getTipTva(searchText?, id_tiptva?){
+	fdbGetAccesoriiForProdus(searchText?, id_prod?) {
+		const promise = this.httpClient.get(
+			`${this.PHP_API_SERVER}/dbproduse.php?
+						op=fdbGetAccesoriiForProdus
+						&searchText=${searchText || ""}
+						&id_prod=${id_prod || ""}`
+		).toPromise();
+		return promise.then((data) => {
+			return data;
+		}).catch((error) => {
+			console.log("Promise rejected with " + JSON.stringify(error));
+		});
+
+	}
+
+	fdbGetProduseForAccesorii(id_prod, id_categorie?, searchText?) {
+		const promise = this.httpClient.get(
+			`${this.PHP_API_SERVER}/dbproduse.php?
+						op=fdbGetProduseForAccesorii
+						&id_prod=${id_prod}
+						&id_categorie=${id_categorie || ""}
+						&searchText=${searchText || ""}`
+		).toPromise();
+		return promise.then((data) => {
+			return data;
+		}).catch((error) => {
+			console.log("Promise rejected with " + JSON.stringify(error));
+		});
+
+	}
+
+	getTipTva(searchText?, id_tiptva?) {
 		const promise = this.httpClient.get(
 			`${this.PHP_API_SERVER}/dbcomun.php?
 						op=getTipTva
 						&searchText=${searchText || ""}
 						&id_tiptva=${id_tiptva || ""}`
+		).toPromise();
+		return promise.then((data) => {
+			return data;
+		}).catch((error) => {
+			console.log("Promise rejected with " + JSON.stringify(error));
+		});
+	}
+
+
+	getOferte(searchText?, id_ofprod?, id_contact?, ord?, limit?) {
+		const promise = this.httpClient.get(
+			`${this.PHP_API_SERVER}/dboferta.php?
+						op=fdbGetOferte
+						&searchText=${searchText || ""}
+						&id_ofprod=${id_ofprod || ""}
+						&id_contact=${id_contact || ""}
+						&ord=${ord || ""}
+						&limit=${limit || " 1000 "}
+						`
 		).toPromise();
 		return promise.then((data) => {
 			return data;
@@ -289,7 +339,19 @@ export class ApiService {
 		return this.httpClient.post(`${this.PHP_API_SERVER}/dbproduse.php?op=saveProdCat`, categorie)
 	}
 
-	saveStatus(dataStatus){
+	saveStatus(dataStatus) {
 		return this.httpClient.post(`${this.PHP_API_SERVER}/dbcomun.php?op=saveStatus`, dataStatus)
+	}
+
+	saveInsert(idtable, data) {
+		return this.httpClient.post(`${this.PHP_API_SERVER}/dbcomun.php?opi=${idtable}`, data)
+	}
+
+	fdbSaveAccesorii(id_prod, listaIds) {
+		return this.httpClient.post(`${this.PHP_API_SERVER}/dbproduse.php?op=fdbSaveAccesorii`,
+			{
+				id_prod: id_prod,
+				listaIds: listaIds,
+			})
 	}
 }

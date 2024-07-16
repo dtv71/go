@@ -6,6 +6,7 @@ import { DialogService } from '../_services/dialog.service';
 import { AgGrid, ColDef, Renderers } from '../controls';
 import { ToastrService } from 'ngx-toastr';
 import { ProdusEditModal } from './produs.edit.modal';
+import { ProdusAddAccesoriu } from './produse.add.accesoriu';
 
 @Component({
   selector: 'app-produse',
@@ -17,10 +18,11 @@ export class ProduseComponent implements OnInit {
     private auth: AuthenticationService, private dialog: DialogService, private log: ToastrService) { }
 
   grid: AgGrid
+  gridAccesorii: AgGrid
   searchText
   id_prod
   id_categorie
-  //listacategorii
+  listaaccesorii
   listaproduse
   statusCurent
   url_media
@@ -35,6 +37,7 @@ export class ProduseComponent implements OnInit {
     this.id_categorie = this.activatedRoute.snapshot.paramMap.get('id_categorie') || "";
     this.setupGrid()
     this.getProduse()
+    this.setupGridAccesorii()
   }
 
   setupGrid() {
@@ -43,11 +46,12 @@ export class ProduseComponent implements OnInit {
       { headerName: 'Nume', field: 'nume_prod' },
       { headerName: 'Categorie', field: 'numecategorie' },
       { headerName: 'Producator', field: 'numeproducator' },
-      { headerName: 'Pret fara TVA', field: 'pretftva', },
-      { headerName: 'Valoare TVA', field: 'valtva', },
-      { headerName: 'Pret vanzare', field: 'pretvanzare', },
-      { headerName: 'Procent discount', field: 'procentdiscount', },
-      { headerName: 'Valoare discount', field: 'valdiscount', },
+      { headerName: 'Pret fara TVA', field: 'pretftva', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Valoare TVA', field: 'valtva', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Pret vanzare', field: 'pretvanzare', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Procent discount', field: 'procentdiscount', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Valoare discount', field: 'valdiscount', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Pret cu discount', field: 'pretcudiscount', cellRenderer: Renderers.NumericDecimal },
       { headerName: 'Valuta', field: 'valuta', },
       { headerName: 'Inactiv', field: 'is_inactiv', cellRenderer: Renderers.Checkbox },
       // { headerName: 'Media', field: 'url_media', cellRenderer: Renderers.Img  },
@@ -74,6 +78,7 @@ export class ProduseComponent implements OnInit {
       this.statusCurent = this.grid.selectedRow.is_inactiv
       this.url_media = this.grid.selectedRow.url_media || ""
       this.grid.gridOptions.api.ensureIndexVisible(this.grid.gridOptions.api.getSelectedNodes()[0].rowIndex);
+      this.getAccesoriiForProdus()
     }
 
     this.grid.gridOptions.onSortChanged = () => {
@@ -85,10 +90,32 @@ export class ProduseComponent implements OnInit {
     }
   }
 
-  getCategorii() {
-    // this.api.fdbGetCategoriiProduse(this.searchText, this.id_categorie).then((d)=>{
-    //   this.listacategorii = d
-    // })
+  setupGridAccesorii() {
+    var colDefs: ColDef[] = [
+      { headerName: "NrCrt.", valueGetter: "node.rowIndex + 1", width: 70 },
+      { headerName: 'Nume', field: 'numeprodus' },
+      { headerName: 'Pret fara TVA', field: 'pretftva', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Valoare TVA', field: 'valtva', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Pret vanzare', field: 'pretvanzare', cellRenderer: Renderers.NumericDecimal },
+      { headerName: 'Categorie', field: 'numecategorie' },
+      { headerName: 'Producator', field: 'numeproducator' },
+      //{ headerName: 'Id', field: 'id' },
+
+    ];
+    this.gridAccesorii = new AgGrid(colDefs, false, false);
+  }
+
+  getAccesoriiForProdus() {
+    this.api.fdbGetAccesoriiForProdus("", this.id_prod).then((d) => {
+      this.listaaccesorii = d
+      this.gridAccesorii.setDataSource(this.listaaccesorii).then(() => {
+        // this.grid.gridOptions.api.forEachNode(node => {
+        //   if (node.data.id_prod == this.id_prod) {
+        //     node.setSelected(true);
+        //   }
+        // });
+      })
+    })
   }
 
   listacategorii: any = (search) => {
@@ -96,7 +123,7 @@ export class ProduseComponent implements OnInit {
   }
 
   getProduse() {
-    this.api.fdbGetProduse("", this.id_categorie).then((d) => {
+    this.api.fdbGetProduse(this.searchText, this.id_categorie).then((d) => {
       this.listaproduse = d
       this.grid.setDataSource(this.listaproduse).then(() => {
         this.grid.gridOptions.api.forEachNode(node => {
@@ -112,8 +139,9 @@ export class ProduseComponent implements OnInit {
   visibleButton() { return true }
 
   edit(id_prod, id_categorie) {
-    this.dialog.custom(ProdusEditModal, { id_prod: id_prod, id_categorie: id_categorie }, { size: 'xl', backdrop: false }).result.then(() => {
-      this.getCategorii();
+    this.dialog.custom(ProdusEditModal, { id_prod: id_prod, id_categorie: id_categorie }, { size: 'xl', backdrop: false }).result.then((d) => {
+      this.id_prod = d
+      this.getProduse();
     })
   }
   sterge(id_categorie) { }
@@ -142,14 +170,35 @@ export class ProduseComponent implements OnInit {
 
   exportCsv() { }
 
+  eliminaAccesoriu() {
+    let id_accesoriu = this.gridAccesorii.selectedRow.id_accesoriu
+    this.dialog.confirm({
+      message: 'Doriti sa eliminati accesoriul?', confirmBtn: 'Sterge', cancelBtn: 'Renunta'
+    }).then(() => {
+      this.api.deleteElementById('accesoriu_go', 'id_accesoriu', id_accesoriu, 1).subscribe(() => {
+        this.getAccesoriiForProdus()
+      })
+    })
+  }
+  addAccesoriu() {
+    this.dialog.custom(ProdusAddAccesoriu, { id_prod_parent: this.id_prod }, { size: 'xl', backdrop: false }).result.then((d) => {
+      this.getAccesoriiForProdus();
+    })
+  }
+
   disableButton(tip?) {
     var disabled = true
     switch (tip) {
       case "edit":
       case "sterge":
-        if (this.id_categorie) { disabled = false; } break;
+      case "addAccesoriu":
+        if (this.id_prod) { disabled = false; } break;
+      case "eliminaAccesoriu":
+        if (this.gridAccesorii.selectedRow && this.gridAccesorii.selectedRow.id_accesoriu) { disabled = false; } break;
       default:
-        if (this.id_categorie) { disabled = false }; break;
+        if (this.id_prod) { disabled = false }; break;
     }
+    return disabled
   }
+
 }

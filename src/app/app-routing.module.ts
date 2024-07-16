@@ -12,6 +12,7 @@ import { ProducatorComponent } from './producator/producator.component';
 import { ActivitateEdit } from './activitate/activitate.edit';
 import { ProdcatComponent } from './prodcat/prodcat.component';
 import { ProduseComponent } from './produse/produse.component';
+import { OfertaComponent } from './oferta/oferta.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'producator', component: ProducatorComponent, canActivate: [AuthGuard] },
   { path: 'categoriiproduse', component: ProdcatComponent, canActivate: [AuthGuard] },
   { path: 'produse', component: ProduseComponent, canActivate: [AuthGuard] },
+  { path: 'oferta', component: OfertaComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' },
 ];

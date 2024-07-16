@@ -2,19 +2,29 @@
 
     <div class="alert alert-dark col-12">
         <div class="form-group row">
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-12">
                 <div class="input-group mt-1">
 
                     <input type="text" class="form-control form-control-sm" name="cauta" [(ngModel)]="searchText"
                         placeholder="Cauta...">
                     <div class="input-group-append">
-                        <button class="btn btn-sm btn-secondary" (click)="getCategorii()"><i
+                        <button class="btn btn-sm btn-secondary" (click)="getProduse()"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-12">
+                <div class="input-group mt-1">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="id_categorie"
+                        placeholder="Toate categoriile..." name="id_categorie" [typeahead]="listacategorii" display="nume"
+                        bind="id_categorie" (selectItem)="getProduse()" [colDef]="colCategorii" />
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-warning" type="button" *ngIf="id_categorie" (click)="id_categorie=''; getProduse()"><i
+                                class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
                 <div class="form-group row">
                     <div class="col-12">
                         <div class="btn-group">
@@ -31,25 +41,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-12">
                 <button class="btn btn-sm btn-dark m-1" (click)="exportCsv()" [disabled]="disableButton('export')"
                     *ngIf="visibleButton()"><i class="fa fa-download"></i>&nbsp;Export</button>
             </div>
         </div>
     </div>
-    <div class="row mt-2">
-        <div class="col-md-4 col-sm-12">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="id_categorie"
-                    placeholder="Toate categoriile..." name="id_categorie" [typeahead]="listacategorii" display="nume"
-                    bind="id_categorie" (selectItem)="getProduse()" [colDef]="colCategorii" />
-                <div class="input-group-append">
-                    <button class="btn btn-sm btn-warning" type="button" *ngIf="id_categorie" (click)="id_categorie=''; getProduse()"><i
-                            class="fa fa-times"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <div class="row mt-2">
         <div class="col-12">
             <legend>Produse</legend>
@@ -58,7 +56,22 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-12" *ngIf="url_media">
-            <img src="{{url_media}}" width="300px" />
+        <div class="col-4" *ngIf="url_media">
+            <img src="{{url_media}}" height="200px" />
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-2">
+                    <legend>Accesorii</legend>
+                </div>
+                <div class="col text-end">
+                    <button class="btn btn-sm btn-info m-1" (click)="addAccesoriu()" [disabled]="disableButton('addAccesoriu')"
+                    *ngIf="visibleButton()"><i class="fa fa-plus"></i>&nbsp;Adauga accesoriu</button>
+                    <button class="btn btn-sm btn-dark m-1" (click)="eliminaAccesoriu()" [disabled]="disableButton('eliminaAccesoriu')"
+                    *ngIf="visibleButton()"><i class="fa fa-times"></i>&nbsp;Elimina accesoriu</button>
+                </div>
+            </div>
+            <ag-grid-angular style="height: 25vh;" class="ag-theme-alpine" [gridOptions]="gridAccesorii.gridOptions">
+            </ag-grid-angular>
         </div>
 </div>

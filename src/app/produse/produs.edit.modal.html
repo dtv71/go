@@ -6,13 +6,14 @@
     <form class="container form-horizontal" #f="ngForm">
 
         <fieldset *ngIf="produs">
+            <!--RAND 1-->
             <div class="form-row row">
                 <div class="col col-sm-12 col-md-4">
                     <label class="col-form-label">Categorie</label>
 
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="id_categorie" required
                         placeholder="Alegeti catgorie..." name="id_categorie" [typeahead]="listacategorii"
-                        display="nume" bind="id_categorie" (selectItem)="getProduse()" [colDef]="colCategorii" />
+                        display="nume" bind="id_categorie" [colDef]="colCategorii" />
                 </div>
                 <div class="col col-sm-12 col-md-6">
                     <label class="col-form-label">Nume</label>
@@ -24,6 +25,7 @@
                     <input type="text" class="form-control form-control-sm" name="ord" [(ngModel)]="produs.ord">
                 </div>
             </div>
+            <!--RAND 2-->
             <div class="form-row row">
                 <div class="col col-sm-12 col-md-4">
                     <label class="col-form-label">Descriere</label>
@@ -41,42 +43,76 @@
                         placeholder="Optional..."></textarea>
                 </div>
             </div>
+            <!--RAND 3-->
             <div class="form-row row">
-                <div class="col col-sm-12 col-md-4">
+                <div class="col col-sm-12 col-md-6">
                     <label class="col-form-label">Link</label>
                     <input type="text" class="form-control form-control-sm" name="link_prod"
                         [(ngModel)]="produs.link_prod">
                 </div>
-                <div class="col col-sm-12 col-md-4">
-                    <label class="col-form-label">Accesoriu la</label>
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="id_prod_accesoriu"
-                        placeholder="Accesoriu la..." name="id_prod_accesoriu" [typeahead]="listaproduse"
-                        display="nume_prod" bind="id_prod" [colDef]="colProduse" />
-                </div>
-                <div class="col col-sm-12 col-md-4">
+                <div class="col col-sm-12 col-md-6">
                     <label class="col-form-label">Producator</label>
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="produs.id_producator"
-                        placeholder="Alege producator..." name="id_prod_accesoriu" [typeahead]="listaproducator"
+                        placeholder="Alege producator..." name="id_producator" [typeahead]="listaproducator"
                         display="nume" bind="id_producator" [colDef]="colProducator" />
                 </div>
-                <div class="form-row row">
-                    <div class="col col-sm-12 col-md-4">
-                        <label class="col-form-label">Valuta</label>
-                        <select class="form-select form-select-sm" name="valuta" [(ngModel)]="produs.valuta">
-                            <option *ngFor="let f of listavaluta" [value]="f.nume">{{f.nume}}</option>
-                        </select>
-                    </div>
-                    <div class="col col-sm-12 col-md-4">
-                        <label class="col-form-label">Pret fara TVA</label>
-                        <input type="text" class="form-control form-control-sm" name="valftva"
-                            [(ngModel)]="produs.pretftva">
-                    </div>
-                    <div class="col col-sm-12 col-md-4">
-                        <label class="col-form-label">Procent TVA</label>
-                        <select class="form-select form-select-sm" name="id_tiptva" [(ngModel)]="produs.id_tiptva">
-                            <option *ngFor="let f of listatiptva" [value]="f.id_tiptva">{{f.nume}}</option>
-                        </select>
-                    </div>
+            </div>
+            <!--RAND 4-->
+            <div class="form-row row">
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Valuta</label>
+                    <select class="form-select form-select-sm" name="valuta" [(ngModel)]="produs.valuta" required>
+                        <option *ngFor="let f of listavaluta" [value]="f.nume">{{f.nume}}</option>
+                    </select>
+                </div>
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Pret fara tva</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Pret fara tva..."
+                        [(ngModel)]="produs.pretftva" name="pretftva" (blur)="calculpret()" numeric="4" required />
+                </div>
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Procent TVA</label>
+                    <select class="form-select form-select-sm" name="id_tiptva" [(ngModel)]="produs.id_tiptva" required
+                        (change)="calculpret()">
+                        <option *ngFor="let f of listatiptva" [value]="f.id_tiptva">{{f.nume}}</option>
+                    </select>
+                </div>
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Valoare tva</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Valoare tva..." disabled
+                        [(ngModel)]="produs.valtva" name="valtva" numeric="4" />
+                </div>
+            </div>
+            <!--RAND 5-->
+            <div class="form-row row">
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Pret vanzare</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Valoare tva..." disabled
+                        [(ngModel)]="produs.pretvanzare" name="pretvanzare" numeric="4" />
+                </div>
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Procent discount</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Procent discount..."
+                        (blur)="calculpret()" [(ngModel)]="produs.procentdiscount" name="procentdiscount" numeric="4" />
+                </div>
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Valoare discount</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Valoare discount..." disabled
+                        [(ngModel)]="produs.valdiscount" name="valdiscount" numeric="4" />
+                </div>
+                <div class="col col-sm-12 col-md-3">
+                    <label class="col-form-label">Pret cu discount</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Pret cu discount..." disabled
+                        [(ngModel)]="produs.pretcudiscount" name="pretcudiscount" numeric="4" />
+                </div>
+
+            </div>
+            <div class="form-row row">
+              
+                <div class="col col-12 col-md-12">
+                    <label class="col-form-label">Observatii</label>
+                    <textarea class="form-control" rows="3" name="optional" [(ngModel)]="produs.obs"
+                        placeholder="Observatii..."></textarea>
                 </div>
             </div>
         </fieldset>

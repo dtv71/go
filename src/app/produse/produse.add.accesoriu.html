@@ -1,0 +1,35 @@
+<div class="modal-header bg-info text-white">
+    <h4 class="modal-title">Adauga acceorii</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="container form-horizontal" #f="ngForm">
+
+        <fieldset *ngIf="produseForAccesorii">
+            <!--RAND 1-->
+            <div class="form-group row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="input-group mb-1">
+    
+                        <input type="text" class="form-control form-control-sm" name="cauta" [(ngModel)]="searchText"
+                            placeholder="Cauta...">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-secondary" (click)="getProduseForAccesorii()"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col col-sm-12 col-md-12">
+                    <ag-grid-angular style="height: 45vh;" class="ag-theme-alpine" [gridOptions]="grid.gridOptions">
+                    </ag-grid-angular>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="isDisabled()">Salveaza</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">Anuleaza</button>
+</div>

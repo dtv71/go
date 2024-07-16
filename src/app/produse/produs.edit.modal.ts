@@ -24,7 +24,7 @@ export class ProdusEditModal implements OnInit {
     @Input() id_categorie
     user
     produs: Produse
-    id_prod_accesoriu
+    id_prod_parent
     listavaluta
     listatiptva
 
@@ -48,18 +48,36 @@ export class ProdusEditModal implements OnInit {
         if (this.id_prod == '') {
             var d = new Date()
             this.produs = new Produse
+            this.produs.id_prod = ""
             this.produs.id_categorie = this.id_categorie;
             this.produs.stamp = new Date();
             this.produs.nume_prod = '';
             this.produs.text_prod = '';
             this.produs.is_inactiv = 1
-            this.produs.id_tiptva = ''
+            this.produs.optional = '';
+            this.produs.tech_prod = '';
+            this.produs.link_prod = '';
+            this.produs.flag_news = 0;
+            this.produs.ord = 0;
+            this.produs.pretftva = 0;
+            this.produs.valtva = 0;
+            this.produs.pretvanzare = 0;
+            this.produs.valuta = 0;
+            this.produs.procentdiscount = 0;
+            this.produs.valdiscount = 0;
+            this.produs.pretcudiscount = 0;
+            this.produs.obs = '';
+            this.produs.id_producator = '';
+            this.produs.procent_tva_prod = 0;
+            this.produs.is_inactiv = 0;
             this.produs.iduser = this.auth.currentUserValue.iduser
+
             this.getTiptva()
 
         } else {
             this.apiService.getElementById("prod_go", "id_prod", this.id_prod, 1).then((d) => {
                 this.produs = d[0]
+                this.id_categorie = this.produs.id_categorie
                 console.log(this.produs)
                 this.getTiptva()
             })
@@ -70,12 +88,8 @@ export class ProdusEditModal implements OnInit {
         return this.apiService.fdbGetCategoriiProduse(search, this.id_categorie || "");
     }
 
-    listaproduse: any = (search) => {
-        return this.apiService.fdbGetProduse(search, null, this.id_prod_accesoriu || "", ' c.nume ASC ');
-    }
-
     listaproducator: any = (search) => {
-        return this.apiService.getProducator(search, this.produs.id_producator || "");
+        return this.apiService.getProducator(search, "");
     }
 
     getTiptva() {
@@ -84,16 +98,22 @@ export class ProdusEditModal implements OnInit {
         })
     }
 
-
-    getProduse() {
-        this.apiService.fdbGetProduse("", this.id_categorie).then((d) => {
-            this.listaproduse = d
-
-        })
+    setProcentTva() {
+        for (var i = 0; i < this.listatiptva.length; i++) {
+            if (this.listatiptva[i].id_tiptva == this.produs.id_tiptva) {
+                this.produs.procent_tva_prod = this.listatiptva[i].procent
+            }
+        }
     }
 
-    calculpret(){
-        
+ 
+    calculpret() {
+        this.setProcentTva()
+        this.produs.valtva = this.produs.pretftva * this.produs.procent_tva_prod / 100
+        this.produs.pretvanzare = 1*this.produs.pretftva + 1*this.produs.valtva
+        this.produs.valdiscount = this.produs.pretvanzare * this.produs.procentdiscount / 100
+        this.produs.pretcudiscount = 1* this.produs.pretvanzare - 1*this.produs.valdiscount
+        console.log(this.produs.valtva)
     }
 
     isDisabled() {
@@ -101,12 +121,13 @@ export class ProdusEditModal implements OnInit {
     }
 
     save() {
-        // this.apiService.saveProdCat(this.prodcat).subscribe((d) => {
-        //     this.id_categorie = d;
-        //     console.log(this.id_categorie)
-        //     this.log.success('Categorie salvata!');
-        //     this.goBack()
-        // })
+        this.produs.id_categorie = this.id_categorie
+        this.apiService.saveInsert(0,this.produs).subscribe((d) => {
+            this.id_prod = d;
+            console.log(this.id_prod)
+            this.log.success('Produs salvat!');
+            this.goBack()
+        })
 
     }
     goBack() {

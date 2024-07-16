@@ -49,7 +49,7 @@ export class DashboardComponent {
   }
 
   goOferte() {
-    this.router.navigate(['./partener']);
+    this.router.navigate(['./oferta']);
   }
 
   goProiecte() {
@@ -76,4 +76,5 @@ export class DashboardComponent {
   goProduse(){
     this.router.navigate(['./produse']);
   }
+ 
 }

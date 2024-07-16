@@ -66,7 +66,7 @@ export class ProdcatComponent implements OnInit {
     this.grid.onRowSelected = () => {
       this.id_categorie = this.grid.selectedRow.id_categorie
       this.statusCurent = this.grid.selectedRow.is_inactiv
-      this.grid.gridOptions.api.ensureIndexVisible(this.grid.gridOptions.api.getSelectedNodes()[0].rowIndex, 'middle');
+      this.grid.gridOptions.api.ensureIndexVisible(this.grid.gridOptions.api.getSelectedNodes()[0].rowIndex);
     }
 
     this.grid.gridOptions.onSortChanged = () => {
@@ -79,7 +79,7 @@ export class ProdcatComponent implements OnInit {
   }
 
   getCategorii() {
-    this.api.fdbGetCategoriiProduse(this.searchText, this.id_categorie).then((d) => {
+    this.api.fdbGetCategoriiProduse(this.searchText).then((d) => {
       this.listacategorii = d
       this.grid.setDataSource(this.listacategorii).then(() => {
         this.grid.gridOptions.api.forEachNode(node => {
