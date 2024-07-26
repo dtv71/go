@@ -34,6 +34,11 @@ import { ProdcatEditModal } from './prodcat/prodcat.edit.modal';
 import { ProdusEditModal } from './produse/produs.edit.modal';
 import { OfertaComponent } from './oferta/oferta.component';
 import { ProdusAddAccesoriu } from './produse/produse.add.accesoriu';
+import { SetarigeneraleComponent } from './setarigenerale/setarigenerale.component';
+import { SetariGeneraleEdit } from './setarigenerale/setarigenerale.edit';
+import { SetaritextComponent } from './setaritext/setaritext.component';
+import { UtilizatoriComponent } from './utilizatori/utilizatori.component';
+import { OfertaAdd } from './oferta/oferta.add';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,8 @@ import { ProdusAddAccesoriu } from './produse/produse.add.accesoriu';
     ProducatorComponent, ProducatorEditModal, 
     ProdcatComponent, ProdcatEditModal,
     ProduseComponent, ProdusEditModal, ProdusAddAccesoriu,
-    OfertaComponent
+    OfertaComponent, OfertaAdd,
+    SetarigeneraleComponent, SetariGeneraleEdit, SetaritextComponent, UtilizatoriComponent
   ],
   imports: [
     BrowserModule,

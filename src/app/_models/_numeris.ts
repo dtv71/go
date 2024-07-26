@@ -237,3 +237,56 @@ export class Oferta {
        idtip_status: string;
        idtip_prioritate: string;
 }
+
+export class OfertaNou {
+    id:number;
+    id_ofprod:string;
+    nume:string;
+    client:string;
+    titlu_contact:number;
+    functie_contact:number;
+    spec_med_contact:string;
+    ent_med_contact:string;
+    id_contact:string;
+    id_project:string;
+    adresa_cp:string;
+    adresa_str:string;
+    adresa_nr:string;
+    adresa_jud:string;
+    adresa_loc:string;
+    cui_client:string;
+    tel1_client:string;
+    tel2_client:string;
+    fax_client:string;
+    www_client:string;
+    email_client:string;
+    data_priority:Date;
+    data_status:Date;
+    followup:string;
+    pretvanzareof:number;
+    pretftvaof:number;
+    valtvaof:number;
+    procentdiscountof:number;
+    valdiscountof:number;
+    pretoferta:number;
+    modplata:string;
+    termen_garantie:string;
+    termen_livrare:string;
+    instalare:string;
+    valabilitate_oferta:string;
+    tech_prodof:string;
+    optional_prodof:string;
+    obsof:string;
+    noteof:string;
+    data_oferta:Date;
+    userid:number;
+    tip_oferta:number;
+    data_reminder:Date;
+    data_demo:Date;
+    iduser:string;
+    idtip_oferta:string;
+    id_valuta:string;
+    id_tiptva:string;
+    idtip_status:string;
+    idtip_prioritate:string;
+}

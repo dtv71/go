@@ -17,9 +17,9 @@ export class UserService {
     return this.appcfg.apiUrl;
   }
 
-  getAll() {
+  getAll(searchText?, iduser?, filt?) {
     return this.http.get<User[]>(
-      `${this.PHP_API_SERVER}/userauth.php?op=fdbGetAllUsers`
+      `${this.PHP_API_SERVER}/userauth.php?op=fdbGetAllUsers&searchText=${searchText|| ''}&iduser=${iduser || ''}&filt=${filt || ''}`
     );
   }
 }

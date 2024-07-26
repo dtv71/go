@@ -15,6 +15,6 @@ export class User {
 	iduser:string;
 	useridold: number;
 	pwdclar:string;
-	isinactiv: number;
+	is_inactiv: number;
     dt: Date
 }

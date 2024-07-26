@@ -1,0 +1,63 @@
+<div class="container-fluid">
+
+    <div class="alert alert-dark col-12">
+        <div class="form-group row">
+            <div class="col-md-4 col-sm-12">
+                <div class="input-group mt-1">
+
+                    <input type="text" class="form-control form-control-sm" name="cauta" [(ngModel)]="searchText"
+                        placeholder="Cauta...">
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-secondary" (click)="getUsers()"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-2 com-sm-12 mt-1">
+                <select class="form-select form-select-sm" name="valuta" [(ngModel)]="filt" (change)="getUsers()">
+                    <option *ngFor="let f of listafilter" [value]="f.nume">{{f.nume}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-success" (click)="add()" *ngIf="visibleButton()"><i
+                                    class="fa fa-plus-circle"></i>&nbsp;Cont nou</button>
+
+                        </div>
+
+                        <button class="btn btn-sm btn-primary m-1" (click)="edit()" [disabled]="disableButton('edit')"
+                            *ngIf="visibleButton()"><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+                        &nbsp;|&nbsp;
+                        <button class="btn btn-sm btn-warning m-1" (click)="schimbaStatus()"
+                            [disabled]="disableButton('status')" *ngIf="visibleButton()"><i class="{{statusCurent == 1 ? 'fa fa-unlock' :
+                                'fa fa-lock'}}"></i>&nbsp;{{statusCurent == 1 ? 'Activeaza' :
+                            'Dezactiveaza'}}</button>
+                        <button class="btn btn-sm btn-info m-1" (click)="schimbaAdmin()"
+                            [disabled]="disableButton('status')" *ngIf="visibleButton()"><i
+                                class="{{adminCurent == 0 ? 'fa fa-user-tie' : 'fa fa-user-xmark'}}"></i>&nbsp;{{adminCurent
+                            == 0 ? 'Admin on' :
+                            'Admin off'}}</button>
+                        <button class="btn btn-sm btn-danger m-1" (click)="schimbaSuper()"
+                            [disabled]="disableButton('status')" *ngIf="visibleButton()"><i
+                                class="{{superCurent == 0 ? 'fa fa-user-tie' : 'fa fa-user-xmark'}}"></i>&nbsp;{{superCurent
+                            == 0 ? 'Super on' :
+                            'Super off'}}</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <legend>Utilizatori</legend>
+            <ag-grid-angular style="height: 70vh;" class="ag-theme-alpine" [gridOptions]="grid.gridOptions">
+            </ag-grid-angular>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,142 @@
+<div class="container-fluid">
+    <div class="alert alert-primary">
+        <div class="container-fluid row">
+            <div class="col-md-4 col-sm-12">
+                <legend>Oferta</legend>
+            </div>
+            <div class="col-md-2 col-sm-12">
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="col-form-label">Data</label>
+                    </div>
+                    <input class="form-control" placeholder="dd.mm.yyyy" name="dataOferta" disabled
+                        [(ngModel)]="dataOferta" ngbDatepicker #do="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" (click)="do.toggle()" type="button" disabled><i
+                                class="fa fa-calendar" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 text-end">
+                <a class="btn btn-primary m-1" [routerLink]="['/contactnou']" target="_blank" name="contactnou">Contact
+                    nou</a>
+                <button type="button" class="btn btn-success m-1" (click)="save()"
+                    [disabled]="isDisabled()">Salveaza</button>
+                <button type="button" class="btn btn-danger m-1" (click)="goBack()">Anuleaza</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-12">
+        <form class="container form-horizontal" #f="ngForm">
+            <div class="card">
+                <div class="card-header">
+                    Date client
+                </div>
+                <div class="card-body">
+                    <fieldset>
+                        <div class="form-row row">
+                            <!-- <div class="col-md-2 col-sm-12">
+                        <label class="col-form-label">Tip Activitate</label>
+                        <select class="form-select form-select-sm" name="idtitlu_contact" (change)="getSetIsClient()"
+                            [(ngModel)]="activitate.idtip_activitate">
+                            <option *ngFor="let f of listatipactivitate" [value]="f.idstatus">{{f.nume}}</option>
+                        </select>
+                    </div> -->
+
+                            <div class="col-md-6 col-sm-12">
+                                <label class="col-form-label">Client</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="oferta.id_contact"
+                                    required name="id_contact" [typeahead]="listacontacte" display="numeprenume"
+                                    bind="id_contact" (selectItem)="getContact(oferta.id_contact)"
+                                    [colDef]="colContact" />
+                            </div>
+                            <div class="col-md-2 col-sm-12" *ngIf="contact">
+                                <label class="col-form-label">Specialitate</label>
+                                <input type="text" class="form-control form-control-sm" name="spec_med" disabled
+                                    [(ngModel)]="contact.spec_med">
+                            </div>
+
+                            <div class="col-md-2 col-sm-12" *ngIf="contact">
+                                <label class="col-form-label">Tip</label>
+                                <input type="text" class="form-control form-control-sm" name="tipcontact" disabled
+                                    [(ngModel)]="contact.tipcontact">
+                            </div>
+                            <div class="col-md-2 col-sm-12" *ngIf="contact">
+                                <label class="col-form-label">Functie</label>
+                                <input type="text" class="form-control form-control-sm" name="functiecontact" disabled
+                                    [(ngModel)]="contact.functiecontact">
+                            </div>
+                        </div>
+
+                        <div class="form-row row" *ngIf="contact ">
+                            <div class="col-md-4 col-sm-12">
+                                <label class="col-form-label">Unitate</label>
+                                <input type="text" class="form-control form-control-sm" name="unitate" disabled
+                                    [(ngModel)]="contact.unitate">
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label class="col-form-label">Judet</label>
+                                <input type="text" class="form-control form-control-sm" name="jud_contact" disabled
+                                    [(ngModel)]="contact.jud_contact">
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label class="col-form-label">Localitate</label>
+                                <input type="text" class="form-control form-control-sm" name="loc_contact" disabled
+                                    [(ngModel)]="contact.loc_contact">
+                            </div>
+
+
+                        </div>
+                        <div class="form-row row" *ngIf="contact">
+                            <div class="col-md-3 col-sm-12">
+                                <label class="col-form-label">Strada</label>
+                                <input type="text" class="form-control form-control-sm" name="str_contact" disabled
+                                    [(ngModel)]="contact.str_contact">
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="col-form-label">Nr</label>
+                                <input type="text" class="form-control form-control-sm" name="nr_contact" disabled
+                                    [(ngModel)]="contact.nr_contact">
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="col-form-label">Telefon 1</label>
+                                <input type="text" class="form-control form-control-sm" name="tel1_contact" disabled
+                                    [(ngModel)]="contact.tel1_contact">
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="col-form-label">Telefon 2</label>
+                                <input type="text" class="form-control form-control-sm" name="tel2_contact" disabled
+                                    [(ngModel)]="contact.tel2_contact">
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <label class="col-form-label">Email</label>
+                                <input type="text" class="form-control form-control-sm" name="email_contact" disabled
+                                    [(ngModel)]="contact.email_contact">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    Produs oferta
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="oferta.id_ofprod" required
+                        name="id_prod" [typeahead]="listaproduse" display="nume_prod" bind="id_prod"
+                        (selectItem)="getProdAndAccesorii()" [colDef]="colProduse" />
+                </div>
+                <div class="card-body">
+                    <fieldset>
+                        <div class="form-row row">
+                            <div class="col-md-6 col-sm-12">
+                                
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

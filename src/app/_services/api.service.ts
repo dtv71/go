@@ -274,12 +274,13 @@ export class ApiService {
 
 	}
 
-	getTipTva(searchText?, id_tiptva?) {
+	getTipTva(searchText?, id_tiptva?, is_curent?) {
 		const promise = this.httpClient.get(
 			`${this.PHP_API_SERVER}/dbcomun.php?
 						op=getTipTva
 						&searchText=${searchText || ""}
-						&id_tiptva=${id_tiptva || ""}`
+						&id_tiptva=${id_tiptva || ""}
+						&is_curent=${is_curent || 0}`
 		).toPromise();
 		return promise.then((data) => {
 			return data;
@@ -287,6 +288,22 @@ export class ApiService {
 			console.log("Promise rejected with " + JSON.stringify(error));
 		});
 	}
+
+	getValuta(searchText?, id_valuta?, is_curent?) {
+		const promise = this.httpClient.get(
+			`${this.PHP_API_SERVER}/dbcomun.php?
+						op=getValuta
+						&searchText=${searchText || ""}
+						&id_valuta=${id_valuta || ""}
+						&is_curent=${is_curent || 0}`
+		).toPromise();
+		return promise.then((data) => {
+			return data;
+		}).catch((error) => {
+			console.log("Promise rejected with " + JSON.stringify(error));
+		});
+	}
+
 
 
 	getOferte(searchText?, id_ofprod?, id_contact?, ord?, limit?) {
@@ -341,6 +358,10 @@ export class ApiService {
 
 	saveStatus(dataStatus) {
 		return this.httpClient.post(`${this.PHP_API_SERVER}/dbcomun.php?op=saveStatus`, dataStatus)
+	}
+
+	setCurent(dataStatus) {
+		return this.httpClient.post(`${this.PHP_API_SERVER}/dbcomun.php?op=setCurent`, dataStatus)
 	}
 
 	saveInsert(idtable, data) {

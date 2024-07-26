@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="alert alert-dark col-12">
+        <div class="form-group row">
+            <div class="col">
+                <legend>Text predefinit</legend>
+            </div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-success pm-1" (click)="save()">Salveaza</button>
+                <button type="button" class="btn btn-danger m-1" (click)="cancel()">Anuleaza modificarile</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <form class="container form-horizontal" #f="ngForm">
+            <fieldset *ngIf="setaritext">
+                <div class="form row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Zile activitate</label>
+                        <input type="text" class="form-control form-control-sm" name="days_activitate"
+                            [(ngModel)]="setaritext.days_activitate">
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Zile oferte</label>
+                        <input type="text" class="form-control form-control-sm" name="days_oferte"
+                            [(ngModel)]="setaritext.days_oferte">
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <label class="col-form-label">Zile proiect</label>
+                        <input type="text" class="form-control form-control-sm" name="days_projects"
+                            [(ngModel)]="setaritext.days_projects">
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Garantie oferta</label>
+                        <textarea class="form-control" rows="5" name="garantie_oferta"
+                            [(ngModel)]="setaritext.garantie_oferta" placeholder="Garantie oferta..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Instalare oferta</label>
+                        <textarea class="form-control" rows="5" name="instalare_oferta"
+                            [(ngModel)]="setaritext.instalare_oferta" placeholder="Instalare oferta..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Livrare oferta</label>
+                        <textarea class="form-control" rows="5" name="instalare_oferta"
+                            [(ngModel)]="setaritext.livrare_oferta" placeholder="Livrare oferta..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Mod plata oferta</label>
+                        <textarea class="form-control" rows="5" name="modplata_oferta"
+                            [(ngModel)]="setaritext.modplata_oferta" placeholder="Mod plata oferta..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Observatii oferta</label>
+                        <textarea class="form-control" rows="5" name="obs_oferta"
+                            [(ngModel)]="setaritext.obs_oferta" placeholder="Observatii oferta..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row row">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-form-label">Observatii oferta</label>
+                        <textarea class="form-control" rows="5" name="valabilitate_oferta"
+                            [(ngModel)]="setaritext.valabilitate_oferta" placeholder="Valabilitate oferta..."></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

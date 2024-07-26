@@ -74,7 +74,7 @@ export class NomenclatorComponent implements OnInit {
   }
 
   setupGrid() {
-    console.log(this.tipstatus)
+    //console.log(this.tipstatus)
     var colDefs: ColDef[] = [
       { headerName: "NrCrt.", valueGetter: "node.rowIndex + 1", width: 70 },
       { headerName: 'Nume', field: 'nume' },

@@ -76,5 +76,17 @@ export class DashboardComponent {
   goProduse(){
     this.router.navigate(['./produse']);
   }
+
+  goSetariGenerale(){
+    this.router.navigate(['./setarigenerale', 'tiptva']);
+  }
+
+  goSetariText(){
+    this.router.navigate(['./setaritext']);
+  }
+
+  goUtilizatori(){
+    this.router.navigate(['./utilizatori']);
+  }
  
 }

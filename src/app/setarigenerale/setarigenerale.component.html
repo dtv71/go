@@ -1,0 +1,75 @@
+<div class="container-fluid">
+
+    <div class="alert alert-dark col-12">
+        <div class="form-group row">
+            <div class="col-md-4 col-sm-12">
+                <div class="input-group mt-1">
+
+                    <input type="text" class="form-control form-control-sm" name="cauta" [(ngModel)]="searchText"
+                        placeholder="Cauta...">
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-secondary" (click)="getLista()"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-success" (click)="add()" *ngIf="visibleButton()"><i
+                                    class="fa fa-plus-circle"></i>&nbsp;Adauga</button>
+
+                        </div>
+
+                        <button class="btn btn-sm btn-primary m-1" (click)="edit()" [disabled]="disableButton('edit')"
+                            *ngIf="visibleButton()"><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+                            &nbsp;|&nbsp;
+                        <button class="btn btn-sm btn-warning m-1" (click)="schimbaStatus()"
+                            [disabled]="disableButton('status')" *ngIf="visibleButton()"><i
+                                class="fa fa-lock"></i>&nbsp;Status</button>
+                                &nbsp;|&nbsp;
+                        <button class="btn btn-sm btn-dark m-1" (click)="setCurent()"
+                            [disabled]="disableButton('status')" *ngIf="visibleButton()"><i
+                                class="fa fa-check"></i>&nbsp;Set curent</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <legend>Setari generale</legend>
+            <!--NAV TAB-->
+            <ul class="nav nav-tabs">
+
+                <li class="nav-item">
+                    <a [routerLink]="['/setarigenerale', 'tiptva']" [ngClass]="setActive('tiptva')"
+                        aria-current="page">Tip TVA</a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['/setarigenerale', 'valuta']" [ngClass]="setActive('valuta')"
+                        aria-current="page">Valuta</a>
+                </li>
+            </ul>
+            <!--END NAV TAB-->
+        </div>
+
+    </div>
+    <div class="row mt-2" *ngIf="mod=='tiptva'">
+        <div class="col-12">
+            <ag-grid-angular style="height: 70vh;" class="ag-theme-alpine" [gridOptions]="gridTipTva.gridOptions">
+            </ag-grid-angular>
+        </div>
+    </div>
+    <div class="row mt-2" *ngIf="mod=='valuta'">
+        <div class="col-12">
+            <ag-grid-angular style="height: 70vh;" class="ag-theme-alpine" [gridOptions]="gridValuta.gridOptions">
+            </ag-grid-angular>
+
+        </div>
+
+    </div>
+</div>

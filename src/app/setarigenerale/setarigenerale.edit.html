@@ -1,0 +1,38 @@
+<div class="modal-header bg-info text-white">
+    <h4 class="modal-title">{{mod=='tiptva' ? 'Tip tva' : 'Valuta'}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="container form-horizontal" #f="ngForm">
+
+        <fieldset *ngIf="mod=='tiptva' && tiptva">
+            <div class="form-row row">
+                <div class="col">
+                    <label class="col-form-label">Tip tva</label>
+                    <input type="text" class="form-control form-control-sm" name="nume_tiptva"
+                        [(ngModel)]="tiptva.nume">
+                </div>
+            </div>
+            <div class="form-row row">
+                <div class="col">
+                    <label class="col-form-label">Procent</label>
+                    <input type="text" class="form-control form-control-sm" name="procent_tiptva"
+                        [(ngModel)]="tiptva.procent">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset *ngIf="mod=='valuta' && valuta">
+            <div class="form-row row">
+                <div class="col">
+                    <label class="col-form-label">Valuta</label>
+                    <input type="text" class="form-control form-control-sm" name="nume_valuta"
+                        [(ngModel)]="valuta.nume">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="isDisabled()">Salveaza</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">Anuleaza</button>
+</div>

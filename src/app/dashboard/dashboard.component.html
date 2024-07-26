@@ -1,67 +1,91 @@
 <div class="container">
 
-    <div class="row mt-2 border-bottom">
-      <legend>Task</legend>
+  <div class="row mt-2 border-bottom">
+    <legend>Task</legend>
+  </div>
+
+  <div class="row">
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-danger btn-lg w-100" (click)="goActivitate()">
+        <i class="fa-solid fa-list-check"></i><br />Activitate
+      </button>
     </div>
-  
-    <div class="row">
-      <div class="col mt-2 mb-2 text-center">
-        <button type="button" class="btn btn-danger btn-lg w-100" (click)="goActivitate()">
-          <i class="fa-solid fa-list-check"></i><br />Activitate
-        </button>
-      </div>
-      <div class="col mt-2 mb-2 text-center">
-        <button type="button" class="btn btn-danger btn-lg w-100" (click)="goOferte()">
-          <i class="fa-solid fa-hand-holding-medical"></i><br />Oferte
-        </button>
-      </div>
-      <div class="col mt-2 mb-2 text-center">
-        <button type="button" class="btn btn-danger btn-lg w-100" (click)="goProiecte()">
-          <i class="fa-solid fa-diagram-project"></i><br />Proiecte
-        </button>
-      </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-danger btn-lg w-100" (click)="goOferte()">
+        <i class="fa-solid fa-hand-holding-medical"></i><br />Oferte
+      </button>
     </div>
-    <div class="row mt-2 border-bottom">
-        <legend>Nomenclatoare</legend>
-      </div>
-    <div class="row">
-        <div class="col mt-2 mb-2 text-center">
-            <button type="button" class="btn btn-primary btn-lg w-100" (click)="goContacte()">
-              <i class="fa-regular fa-address-book"></i><br />Contacte
-            </button>
-          </div>
-          <div class="col mt-2 mb-2 text-center">
-            <button type="button" class="btn btn-primary btn-lg w-100" (click)="goUnitate()">
-              <i class="fa-regular fa-hospital"></i><br />Unitate
-            </button>
-          </div>
-          <div class="col mt-2 mb-2 text-center">
-            <button type="button" class="btn btn-primary btn-lg w-100" (click)="goNomenclator()">
-              <i class="fa-solid fa-table-list"></i><br />Nomenclatoare
-            </button>
-          </div>
-          <div class="col mt-2 mb-2 text-center">
-            <button type="button" class="btn btn-primary btn-lg w-100" (click)="goProducator()">
-              <i class="fa-solid fa-user-tie"></i><br />Producator
-            </button>
-          </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-danger btn-lg w-100" (click)="goProiecte()">
+        <i class="fa-solid fa-diagram-project"></i><br />Proiecte
+      </button>
     </div>
-    <div class="row mt-2 border-bottom">
-        <legend>Warehouse</legend>
-      </div>
-    <div class="row">
-      <div class="col mt-2 mb-2 text-center">
-        <button type="button" class="btn btn-dark btn-lg w-100" (click)="goCategorii()">
-          <i class="fas fa-list-alt"></i><br />Categorii
-        </button>
-      </div>
-        <div class="col mt-2 mb-2 text-center">
-            <button type="button" class="btn btn-dark btn-lg w-100" (click)="goProduse()">
-              <i class="fa-solid fa-warehouse"></i><br />Produse
-            </button>
-          </div>
-         
+  </div>
+  <div class="row mt-2 border-bottom">
+    <legend>Nomenclatoare</legend>
+  </div>
+  <div class="row">
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-primary btn-lg w-100" (click)="goContacte()">
+        <i class="fa-regular fa-address-book"></i><br />Contacte
+      </button>
+    </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-primary btn-lg w-100" (click)="goUnitate()">
+        <i class="fa-regular fa-hospital"></i><br />Unitate
+      </button>
+    </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-primary btn-lg w-100" (click)="goNomenclator()">
+        <i class="fa-solid fa-table-list"></i><br />Nomenclatoare
+      </button>
+    </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-primary btn-lg w-100" (click)="goProducator()">
+        <i class="fa-solid fa-user-tie"></i><br />Producator
+      </button>
+    </div>
+  </div>
+  <div class="row mt-2 border-bottom">
+    <legend>Stoc</legend>
+  </div>
+  <div class="row">
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-dark btn-lg w-100" (click)="goCategorii()">
+        <i class="fas fa-list-alt"></i><br />Categorii
+      </button>
+    </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-dark btn-lg w-100" (click)="goProduse()">
+        <i class="fa-solid fa-warehouse"></i><br />Produse
+      </button>
     </div>
 
   </div>
-  
+  <div class="row mt-2 border-bottom">
+    <legend>Setari</legend>
+  </div>
+  <div class="row">
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-warning btn-lg w-100" (click)="goSetariGenerale()">
+        <i class="fas fa-gear"></i><br />Generale
+      </button>
+    </div>
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-warning btn-lg w-100" (click)="goSetariText()">
+        <i class="fa-solid fa-edit"></i><br />Text
+      </button>
+    </div>
+
+  </div>
+  <div class="row mt-2 border-bottom">
+    <legend>Utilizatori</legend>
+  </div>
+  <div class="row">
+    <div class="col mt-2 mb-2 text-center">
+      <button type="button" class="btn btn-info btn-lg w-100" (click)="goUtilizatori()">
+        <i class="fas fa-user"></i><br />Utilizatori
+      </button>
+    </div>
+  </div>
+</div>

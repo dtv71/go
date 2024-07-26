@@ -56,10 +56,7 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-4" *ngIf="url_media">
-            <img src="{{url_media}}" height="200px" />
-        </div>
-        <div class="col">
+        <div class="col-md-8 col-sm-12">
             <div class="row">
                 <div class="col-2">
                     <legend>Accesorii</legend>
@@ -73,5 +70,8 @@
             </div>
             <ag-grid-angular style="height: 25vh;" class="ag-theme-alpine" [gridOptions]="gridAccesorii.gridOptions">
             </ag-grid-angular>
+        </div>
+        <div class="col-md-4 col-sm-12 text-center mt-2" *ngIf="url_media">
+            <img src="{{url_media}}" height="250px" />
         </div>
 </div>

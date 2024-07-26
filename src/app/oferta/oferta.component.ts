@@ -114,13 +114,10 @@ export class OfertaComponent implements OnInit {
 
   visibleButton() { return true }
 
-  edit(id_prod, id_categorie) {
-    // this.dialog.custom(ProdusEditModal, { id_prod: id_prod, id_categorie: id_categorie }, { size: 'xl', backdrop: false }).result.then((d) => {
-    //   this.id_prod = d
-    //   this.getProduse();
-    // })
+  add() {
+    this.router.navigate(['./oferta.add', '', '']);
   }
-  sterge(id_categorie) { }
+  sterge() { }
   
   schimbaStatus() {
     // var statusNou = 0
