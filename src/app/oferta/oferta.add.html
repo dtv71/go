@@ -124,13 +124,31 @@
                     Produs oferta
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="oferta.id_ofprod" required
                         name="id_prod" [typeahead]="listaproduse" display="nume_prod" bind="id_prod"
-                        (selectItem)="getProdAndAccesorii()" [colDef]="colProduse" />
+                        (selectItem)="getProdAndAccesorii(oferta.id_ofprod)" [colDef]="colProduse" />
                 </div>
                 <div class="card-body">
                     <fieldset>
                         <div class="form-row row">
-                            <div class="col-md-6 col-sm-12">
-                                
+                            <div class="col-md-12 col-sm-12">
+                                <table class="mytable table table-sm table-hover table-bordered" id="tblAccesorii">
+                                        <tr *ngFor="let item of accesorii; trackBy: trackBy;let i=index" id="{{item.s_idcontract}}">
+                                            <td [ngClass]="getCssClass(item.bucprod)">{{i+1}}</td>
+                                            <td class="text-warning"><i class="{{item.bucprod == 0 ? 'fa-solid fa-chevron-right' : 'fa fa-check'}}"></i></td>
+                                            <td [ngClass]="getCssClass(item.bucprod)">{{item.numeprodus}}</td>
+                                            <td [ngClass]="getCssClass(item.bucprod)">
+                                                <input type="number" class="form-control form-control-sm text-end"
+                                                    [name]="'bucprod'+i" [id]="'bucprod'+i" style="vertical-align:middle;"
+                                                    [(ngModel)]="item.bucprod" (change)="setValoare()" numeric="5"
+                                                    [disabled]="!oferta.id_ofprod" />
+                                            </td>
+                                            <td [ngClass]="getCssClass(item.bucprod)">
+                                                <input type="number" class="form-control form-control-sm bold text-end"
+                                                    [name]="'accesoriu'+i" [id]="'accesoriu'+i" style="vertical-align:middle;"
+                                                    [(ngModel)]="item.pretftva" (change)="setValoare()" numeric="5"
+                                                    [disabled]="!oferta.id_ofprod" />
+                                            </td>
+                                        </tr>
+                                </table>
 
                             </div>
                         </div>

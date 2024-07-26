@@ -22,6 +22,8 @@ export class OfertaAdd implements OnInit {
 
     @Input() id_prod
     @Input() id_contact
+
+    trackBy(index: number, item) { return item.id }
     user
     produs
     contact
@@ -56,7 +58,7 @@ export class OfertaAdd implements OnInit {
         this.listavaluta = Valuta
 
         if (this.id_prod) {
-          this.getProdAndAccesorii()
+          this.getProdAndAccesorii(this.id_prod)
         }
         if (this.id_contact) {
            this.getContact(this.id_contact)
@@ -78,12 +80,13 @@ export class OfertaAdd implements OnInit {
         })
     }
 
-    getProdAndAccesorii(){
-        this.api.fdbGetProduse("", 'idprod', this.id_prod, 1).then((d) => {
+    getProdAndAccesorii(id_prod){
+        this.api.fdbGetProduse("", 'idprod', id_prod, 1).then((d) => {
             this.produs = d[0]
         })
-        this.api.fdbGetAccesoriiForProdus("", this.id_prod).then((d) => {
+        this.api.fdbGetAccesoriiForProdus("", id_prod).then((d) => {
             this.accesorii = d
+            console.log(this.accesorii)
         })
     }
 
@@ -153,6 +156,20 @@ export class OfertaAdd implements OnInit {
         this.produs.pretcudiscount = 1 * this.produs.pretvanzare - 1 * this.produs.valdiscount
         console.log(this.produs.valtva)
     }
+
+    setValoare(){
+
+    }
+
+    getCssClass(bucprod) {
+        var cssClass = ''
+        if (bucprod == 0) {
+          cssClass += ' text-primary';
+        } else{
+            cssClass += ' text-success fw-bold';
+        }
+        return cssClass;
+      }
 
     isDisabled() {
         return false
